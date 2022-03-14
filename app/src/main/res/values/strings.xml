@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">MyZap</string>
+
+    <!--tela login-->
+    <string name="digite_seu_email">Digite seu Email :</string>
+    <string name="digite_sua_senha">Digite sua senha :</string>
+    <string name="entrar">Entrar</string>
+    <string name="ainda_nao_tem_acesso_cadastre_se">Ainda nao tem acesso Cadastre-se</string>
+
+
 </resources>
