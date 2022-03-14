@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "751236305611",
+    "project_id": "myzap-d1637",
+    "storage_bucket": "myzap-d1637.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:751236305611:android:a89c343d51057d6a46814e",
+        "android_client_info": {
+          "package_name": "com.gds.myzap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "751236305611-i24eb3fbga110bsjvhsn8210s49bcubv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gds.myzap",
+            "certificate_hash": "cbf7a6deb4dd8d0e7fa8896729c80b9cf05c87ab"
+          }
+        },
+        {
+          "client_id": "751236305611-org18kls8pu0e90npbuunlp88c66sf59.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0X7M1C6QkL7h96OGlTyGaeJG4wLImfSI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "751236305611-org18kls8pu0e90npbuunlp88c66sf59.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
