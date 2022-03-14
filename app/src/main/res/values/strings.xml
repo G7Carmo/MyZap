@@ -7,5 +7,10 @@
     <string name="entrar">Entrar</string>
     <string name="ainda_nao_tem_acesso_cadastre_se">Ainda nao tem acesso Cadastre-se</string>
 
+    <!--tela cadastro-->
+    <string name="digite_seu_nome">Digite seu Nome :</string>
+    <string name="cadastre_se">Cadastre-se</string>
+    <string name="ja_possui_cadastro_acesse">Ja possui cadastro ? Acesse !</string>
+
 
 </resources>
