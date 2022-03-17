@@ -10,13 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyZap">
         <activity
-            android:name=".CadastroActivity"
+            android:name=".ui.activity.CadastroActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".ui.activity.SplashActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.activity.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:exported="true" />
     </application>
 

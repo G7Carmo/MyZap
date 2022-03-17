@@ -1,7 +1,8 @@
-package com.gds.myzap
+package com.gds.myzap.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.gds.myzap.R
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

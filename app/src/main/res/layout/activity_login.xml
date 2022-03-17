@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/green_500"
-    tools:context=".LoginActivity">
+    tools:context=".ui.activity.LoginActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgLogoLogin"
@@ -56,6 +56,8 @@
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        app:errorEnabled="true"
+        app:errorIconDrawable="@drawable/ic_baseline_error_24"
         app:layout_constraintBottom_toTopOf="@+id/textSenhaLabelLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -65,6 +67,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editEmailLogin"
             android:layout_width="match_parent"
+            android:inputType="textEmailAddress"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
@@ -76,6 +79,8 @@
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        app:errorEnabled="true"
+        app:errorIconDrawable="@drawable/ic_baseline_error_24"
         app:counterTextColor="@color/green_200"
         app:layout_constraintBottom_toTopOf="@+id/btnEntrarLogin"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,6 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
+            android:inputType="textPassword"
             android:layout_marginEnd="32dp"
             android:hint="@string/digite_sua_senha"
             android:textColorHint="@color/white" />

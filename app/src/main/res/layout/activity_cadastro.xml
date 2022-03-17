@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/green_500"
-    tools:context=".CadastroActivity">
+    tools:context=".ui.activity.CadastroActivity">
 
     <ImageView
         android:id="@+id/imgCadastro"
@@ -25,6 +25,8 @@
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        app:errorEnabled="true"
+        app:errorIconDrawable="@drawable/ic_baseline_error_24"
         app:layout_constraintBottom_toTopOf="@+id/textSenhaLabelCadastro"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -36,9 +38,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:inputType="textEmailAddress"
             android:layout_marginEnd="32dp"
-            android:hint="@string/digite_seu_email" />
+            android:hint="@string/digite_seu_email"
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -47,6 +49,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        app:errorEnabled="true"
+        app:errorIconDrawable="@drawable/ic_baseline_error_24"
         app:layout_constraintBottom_toTopOf="@+id/textNomeLabelCadastro"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -56,11 +60,11 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editSenhaCadastro"
             android:layout_width="match_parent"
-            android:inputType="textPassword"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            android:hint="@string/digite_sua_senha" />
+            android:hint="@string/digite_sua_senha"
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -68,6 +72,8 @@
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        app:errorEnabled="true"
+        app:errorIconDrawable="@drawable/ic_baseline_error_24"
         app:layout_constraintBottom_toTopOf="@+id/btnCadastrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -79,9 +85,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:inputType="textAutoComplete"
             android:layout_marginEnd="32dp"
-            android:hint="@string/digite_seu_nome" />
+            android:hint="@string/digite_seu_nome"
+            android:inputType="textAutoComplete" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
