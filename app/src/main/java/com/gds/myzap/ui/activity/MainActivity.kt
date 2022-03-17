@@ -11,7 +11,11 @@ import androidx.lifecycle.lifecycleScope
 import com.gds.myzap.R
 import com.gds.myzap.databinding.ActivityMainBinding
 import com.gds.myzap.firebase.auth.AuthFirebase
+import com.gds.myzap.ui.fragments.ContatosFragment
+import com.gds.myzap.ui.fragments.ConversasFragment
 import com.gds.myzap.util.nextScreen
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -21,6 +25,22 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initToolBar()
+        initAbas()
+    }
+
+    private fun initAbas() {
+        val adapterViewpager = FragmentPagerItemAdapter(
+            supportFragmentManager,
+            FragmentPagerItems.with(this)
+                .add("Conversas",ConversasFragment::class.java)
+                .add("Contatos",ContatosFragment::class.java)
+            .create()
+        )
+        val viewPager = binding.viewpager
+        viewPager.adapter = adapterViewpager
+
+        val smartTabLayout = binding.viewpagertab
+        smartTabLayout.setViewPager(viewPager)
     }
 
     @SuppressLint("ResourceAsColor")
