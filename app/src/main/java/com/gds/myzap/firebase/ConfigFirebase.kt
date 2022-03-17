@@ -6,7 +6,7 @@ import com.google.firebase.database.FirebaseDatabase
 
 object ConfigFirebase {
     private var auth : FirebaseAuth = FirebaseAuth.getInstance()
-    private lateinit var dbFirebase : DatabaseReference
+    private var dbFirebase : DatabaseReference = FirebaseDatabase.getInstance().reference
 
     fun getAuthFirebaseEmeilPassword(): FirebaseAuth {
         if (auth == null){

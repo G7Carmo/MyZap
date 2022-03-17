@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.gds.myzap.databinding.ActivityCadastroBinding
 import com.gds.myzap.firebase.auth.AuthFirebase
+import com.gds.myzap.firebase.db.RealtimeDatabaseFirebase
 import com.gds.myzap.model.Usuario
 import com.gds.myzap.util.dialog
 import com.gds.myzap.util.message
@@ -62,16 +63,25 @@ class CadastroActivity : AppCompatActivity() {
 
     private fun cadastrarUsuario(user: Usuario) = lifecycleScope.launch{
         auth.createUserFirebase(user,this@CadastroActivity){
-            result(it)
+            result(it,user)
         }
     }
 
-    private fun result(it: Task<AuthResult>) {
+    private fun result(it: Task<AuthResult>,user: Usuario) {
         if (it.isSuccessful){
             dialog("Sucesso","Cadastro realizado com sucesso!")
+            try {
+                salvandoNoDbRemoto(user)
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
         }else{
             dialog("Falha","Falha ao cadastrar")
         }
+    }
+
+    private fun salvandoNoDbRemoto(user: Usuario) = lifecycleScope.launch{
+        RealtimeDatabaseFirebase.salvarDadosDoCadastro(user)
     }
 
     private fun criarUsuario(nome: String, email: String, senha: String) : Usuario {

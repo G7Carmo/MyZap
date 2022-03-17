@@ -22,6 +22,17 @@ fun AppCompatActivity.dialog(titulo: String, mensagem: String) {
         .create()
         .show()
 }
+fun AppCompatActivity.dialog(titulo: String, mensagem: String,cancelable : Boolean = true) {
+    AlertDialog.Builder(this)
+        .setTitle(titulo)
+        .setMessage(mensagem)
+        .setCancelable(cancelable)
+        .setPositiveButton("OK") { dialogInterface, i ->
+            finish()
+        }
+        .create()
+        .show()
+}
 fun AppCompatActivity.message(mensagem: String, duracao: Int = Toast.LENGTH_LONG) {
     Toast.makeText(
         this,

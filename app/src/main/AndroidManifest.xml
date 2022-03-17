@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gds.myzap">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyZap">
+        <activity
+            android:name=".ui.activity.ConfiguracaoActivity"
+            android:parentActivityName=".ui.activity.MainActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.activity.CadastroActivity"
             android:exported="false" />

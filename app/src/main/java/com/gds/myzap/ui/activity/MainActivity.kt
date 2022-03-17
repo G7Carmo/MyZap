@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                 finish()
             }
             R.id.menuConfig->{
-
+                nextScreen(ConfiguracaoActivity())
             }
             R.id.menuPesquisa->{
 
