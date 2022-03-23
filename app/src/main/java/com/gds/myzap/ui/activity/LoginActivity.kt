@@ -1,11 +1,10 @@
 package com.gds.myzap.ui.activity
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.gds.myzap.databinding.ActivityLoginBinding
-import com.gds.myzap.firebase.auth.AuthFirebase
+import com.gds.myzap.firebase.AuthFirebase
 import com.gds.myzap.model.Usuario
 import com.gds.myzap.util.dialog
 import com.gds.myzap.util.message

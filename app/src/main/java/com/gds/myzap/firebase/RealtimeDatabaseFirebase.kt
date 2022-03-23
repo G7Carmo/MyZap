@@ -1,10 +1,6 @@
-package com.gds.myzap.firebase.db
+package com.gds.myzap.firebase
 
-import android.widget.Toast
-import com.gds.myzap.firebase.ConfigFirebase
-import com.gds.myzap.firebase.auth.AuthFirebase
 import com.gds.myzap.model.Usuario
-import com.google.android.gms.tasks.Task
 
 object RealtimeDatabaseFirebase {
     private val db by lazy { ConfigFirebase.getDatabasebFirebase() }

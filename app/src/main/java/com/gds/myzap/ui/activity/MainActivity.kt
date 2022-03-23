@@ -6,11 +6,10 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
 import com.gds.myzap.R
 import com.gds.myzap.databinding.ActivityMainBinding
-import com.gds.myzap.firebase.auth.AuthFirebase
+import com.gds.myzap.firebase.AuthFirebase
 import com.gds.myzap.ui.fragments.ContatosFragment
 import com.gds.myzap.ui.fragments.ConversasFragment
 import com.gds.myzap.util.nextScreen

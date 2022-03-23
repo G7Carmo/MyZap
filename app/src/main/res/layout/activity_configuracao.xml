@@ -13,8 +13,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgPerfilPadrao"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
         android:layout_marginBottom="32dp"
         android:src="@drawable/padrao"
         app:civ_border_color="@android:color/transparent"
@@ -53,11 +53,11 @@
 
         <ImageView
             android:id="@+id/iconEditConfiguracao"
-            android:clickable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:background="@drawable/ic_baseline_edit_24"
+            android:clickable="true"
             android:paddingEnd="16dp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -67,11 +67,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:textAlignment="center"
         android:text="Esse nao e o seu nome de usuario \n nem a sua senha \n esse nome ficara visivel para seus contatos no myzap"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat" />
+
+    <ImageButton
+        android:id="@+id/imgBtnCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/imgPerfilPadrao"
+        app:layout_constraintEnd_toStartOf="@+id/imgBtnGaleria"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imgPerfilPadrao"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ic_baseline_camera_alt_24" />
+
+    <ImageButton
+        android:id="@+id/imgBtnGaleria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/imgPerfilPadrao"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imgBtnCamera"
+        app:layout_constraintTop_toTopOf="@+id/imgPerfilPadrao"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ic_baseline_photo_library_24" />
 </androidx.constraintlayout.widget.ConstraintLayout>

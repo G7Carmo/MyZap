@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.gds.myzap.databinding.ActivityCadastroBinding
-import com.gds.myzap.firebase.auth.AuthFirebase
-import com.gds.myzap.firebase.db.RealtimeDatabaseFirebase
+import com.gds.myzap.firebase.AuthFirebase
+import com.gds.myzap.firebase.RealtimeDatabaseFirebase
 import com.gds.myzap.model.Usuario
 import com.gds.myzap.util.dialog
 import com.gds.myzap.util.message
