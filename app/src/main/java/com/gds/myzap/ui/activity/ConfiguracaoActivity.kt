@@ -80,7 +80,7 @@ class ConfiguracaoActivity : AppCompatActivity() {
     }
 
     private fun salvandoNoFIrebase(imagem: Bitmap)= lifecycleScope.launch {
-        StoregeFirebase.saveImage(imagem,this@ConfiguracaoActivity)
+        StoregeFirebase.salvandoImagemStorage(imagem,this@ConfiguracaoActivity)
     }
 
     override fun onRequestPermissionsResult(
