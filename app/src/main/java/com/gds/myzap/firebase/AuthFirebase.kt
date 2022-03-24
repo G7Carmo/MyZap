@@ -21,6 +21,7 @@ object AuthFirebase {
         ).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 result(task)
+
             } else {
                 var msg = " "
                 try {
@@ -69,10 +70,7 @@ object AuthFirebase {
     }
     suspend fun logout() = auth.signOut()
 
-    suspend fun currentUser() = auth.currentUser
 
-    suspend fun userKey() = auth.uid.toString()
-    suspend fun verifyCurrentUser() = auth.currentUser != null
     suspend fun resetPassword(context: Context,email: String, sucesso: (task: Task<Void>) -> Unit) {
         auth.sendPasswordResetEmail(email)
             .addOnCompleteListener { authTask ->

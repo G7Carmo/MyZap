@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.gds.myzap.databinding.ActivityLoginBinding
 import com.gds.myzap.firebase.AuthFirebase
+import com.gds.myzap.firebase.UsuarioFirebase
 import com.gds.myzap.model.Usuario
 import com.gds.myzap.util.dialog
 import com.gds.myzap.util.message
@@ -53,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun gerarUsuario(email: String, senha: String): Usuario {
         return Usuario(
-            "",email,senha
+            "",email,senha,""
         )
     }
 
@@ -69,7 +70,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun validaUserLogado() = lifecycleScope.launch {
-        if(auth.verifyCurrentUser()){
+        if(UsuarioFirebase.verifyCurrentUser()){
             nextScreen(MainActivity())
         }
     }

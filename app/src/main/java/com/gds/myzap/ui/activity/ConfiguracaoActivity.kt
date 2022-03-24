@@ -5,16 +5,22 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
+import com.gds.myzap.R
 import com.gds.myzap.databinding.ActivityConfiguracaoBinding
 import com.gds.myzap.firebase.StoregeFirebase
+import com.gds.myzap.firebase.UsuarioFirebase
+import com.gds.myzap.model.Usuario
 import com.gds.myzap.util.Permissao
 import com.gds.myzap.util.dialog
+import com.gds.myzap.util.message
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.io.ByteArrayOutputStream
 
 class ConfiguracaoActivity : AppCompatActivity() {
     private val permission = arrayOf(
@@ -22,13 +28,29 @@ class ConfiguracaoActivity : AppCompatActivity() {
         Manifest.permission.CAMERA
     )
     private lateinit var binding: ActivityConfiguracaoBinding
+    private lateinit var  userLogado : Usuario
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityConfiguracaoBinding.inflate(layoutInflater)
         Permissao.validarPermissao(permission,this,1)
         setContentView(binding.root)
         initToolBar()
+        recuperandoDadosDoUser()
         listners()
+    }
+
+    private fun recuperandoDadosDoUser() = lifecycleScope.launch{
+        val usuario = UsuarioFirebase.currentUser()
+        val url = usuario?.photoUrl
+        if (url != null) {
+            Glide
+                .with(this@ConfiguracaoActivity)
+                .load(url)
+                .into(binding.imgPerfilPadrao)
+        }else{
+            binding.imgPerfilPadrao.setImageResource(R.drawable.padrao)
+        }
+        binding.editNomeConfiguracao.setText(usuario?.displayName ?: "Sem Nome")
     }
 
     @SuppressLint("ResourceAsColor")
@@ -53,6 +75,24 @@ class ConfiguracaoActivity : AppCompatActivity() {
                 startActivityForResult(intent, SELECAO_GALERIA)
             }
         }
+        iconEditConfiguracao.setOnClickListener {
+            atualizaNomeUser()
+
+        }
+    }
+
+    private fun atualizaNomeUser() = lifecycleScope.launch {
+        val nome = binding.editNomeConfiguracao.text.toString()
+        val atualizaNome = UsuarioFirebase.atualizaNome(nome)
+        if (atualizaNome){
+        userLogado = userLogadoDados()
+            userLogado.nome = nome
+            UsuarioFirebase.atualizarUser(userLogado)
+        }
+    }
+
+    private suspend fun userLogadoDados(): Usuario {
+        return UsuarioFirebase.dadosUsuarioLogado().builder()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -80,7 +120,17 @@ class ConfiguracaoActivity : AppCompatActivity() {
     }
 
     private fun salvandoNoFIrebase(imagem: Bitmap)= lifecycleScope.launch {
-        StoregeFirebase.salvandoImagemStorage(imagem,this@ConfiguracaoActivity)
+        StoregeFirebase.salvandoImagemStorage(imagem,this@ConfiguracaoActivity){atualizaFotoUsuario(it)}
+    }
+
+    private fun atualizaFotoUsuario(url: Uri) = lifecycleScope.launch{
+        val retorno = UsuarioFirebase.atualizaFoto(url)
+        if (retorno){
+            userLogado.foto = url.toString()
+            UsuarioFirebase.atualizarUser(userLogado)
+            message("Foto Alterada")
+        }
+
     }
 
     override fun onRequestPermissionsResult(

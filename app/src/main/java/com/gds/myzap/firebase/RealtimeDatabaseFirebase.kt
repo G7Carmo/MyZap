@@ -7,7 +7,7 @@ object RealtimeDatabaseFirebase {
 
     suspend fun salvarDadosDoCadastro(usuario: Usuario){
         db.child("Usuarios")
-            .child(AuthFirebase.userKey())
+            .child(UsuarioFirebase.userKey())
             .setValue(usuario)
     }
 

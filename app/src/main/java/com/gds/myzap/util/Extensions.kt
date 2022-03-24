@@ -5,6 +5,9 @@ import android.content.Intent
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.gds.myzap.model.Usuario
+import java.util.*
+import kotlin.collections.HashMap
 
 fun Context.nextScreen(activity : AppCompatActivity){
     Intent(this,activity::class.java).apply {
