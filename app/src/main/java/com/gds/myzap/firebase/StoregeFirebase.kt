@@ -14,27 +14,6 @@ import java.io.ByteArrayOutputStream
 object StoregeFirebase {
     private val storege by lazy { ConfigFirebase.getStoregeFirebase() }
 
-//    suspend fun saveImage(imagem : Bitmap,context:Context){
-//        val baos =  ByteArrayOutputStream()
-//        imagem.compress(Bitmap.CompressFormat.JPEG,70,baos)
-//        val dadosImg = baos.toByteArray()
-//
-//        storege
-//            .child("Imagens")
-//            .child("Perfil")
-//            .child(AuthFirebase.userKey())
-//            .child("perfil.jpeg")
-//
-//        val uploadTask = storege.putBytes(dadosImg)
-//        uploadTask.addOnFailureListener {
-//            Toast.makeText(context,"Falha ao savar imagem ",Toast.LENGTH_LONG).show()
-//        }
-//        uploadTask.addOnSuccessListener {
-//            Toast.makeText(context,"Sucesso  ao savar imagem ",Toast.LENGTH_LONG).show()
-//
-//        }
-//    }
-
     suspend fun salvandoImagemStorage(imagem: Bitmap, context: Context,atualizaFotoUsuario : (task : Uri)->Unit) {
         val imagesRef: StorageReference? = preparandoLocalNoStorage()
         val dadosImg = preparandoImagem(imagem)

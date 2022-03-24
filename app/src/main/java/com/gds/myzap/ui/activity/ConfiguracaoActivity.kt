@@ -66,7 +66,7 @@ class ConfiguracaoActivity : AppCompatActivity() {
         imgBtnCamera.setOnClickListener {
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             if (intent.resolveActivity(packageManager) != null){
-                startActivityForResult(intent, Companion.SELECAO_CAMERA)
+                startActivityForResult(intent, SELECAO_CAMERA)
             }
         }
         imgBtnGaleria.setOnClickListener {
