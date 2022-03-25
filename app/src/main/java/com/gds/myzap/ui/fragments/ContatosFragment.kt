@@ -7,8 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.gds.myzap.R
 import com.gds.myzap.databinding.FragmentContatosBinding
 import com.gds.myzap.firebase.RealtimeDatabaseFirebase
 import com.gds.myzap.model.Usuario
@@ -17,15 +15,14 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.storage.ControllableTask
 
 
 class ContatosFragment : Fragment() {
     private lateinit var binding: FragmentContatosBinding
-    private val listContatos : ArrayList<Usuario> = arrayListOf()
-    private lateinit var adapterContatos : ContatosAdapter
-    private lateinit var valueEventListener : ValueEventListener
-    private lateinit var dbRefUser : DatabaseReference
+    private val listContatos: ArrayList<Usuario> = arrayListOf()
+    private lateinit var adapterContatos: ContatosAdapter
+    private lateinit var valueEventListener: ValueEventListener
+    private lateinit var dbRefUser: DatabaseReference
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +35,7 @@ class ContatosFragment : Fragment() {
     ): View? {
         binding = FragmentContatosBinding.inflate(layoutInflater)
         initRecyclerView()
-        return  binding.root
+        return binding.root
     }
 
     override fun onStart() {
@@ -61,15 +58,30 @@ class ContatosFragment : Fragment() {
     }
 
     private fun configAdapter(): ContatosAdapter {
-        return ContatosAdapter(listContatos,requireContext())
+        listContatos.map { user ->
+            user?.let {
+
+            }
+        }
+        return ContatosAdapter(listContatos, requireContext())
     }
-    fun recuperandoContatos(){
+
+    fun recuperandoContatos() {
         val dbRefUser = RealtimeDatabaseFirebase.db.child("Usuarios")
         valueEventListener = dbRefUser.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                for (dados in snapshot.children) {
-                    val user = dados.getValue(Usuario::class.java)
-                    user?.let { listContatos.add(it) }
+                snapshot.children.forEach { data ->
+                    val nome = snapshot.child("nome").getValue(String::class.java)
+                    val email = snapshot.child("email").getValue(String::class.java)
+                    val foto = snapshot.child("foto").getValue(String::class.java)
+                    nome?.let { nomeSafe->
+                        email?.let { emailSafe->
+                            foto?.let { fotoSafe->
+                                val userSafe = generateUserSafe(nomeSafe, emailSafe, fotoSafe)
+                                listContatos.add(userSafe)
+                            }
+                        }
+                    }
                 }
                 notificarAdapter()
             }
@@ -79,6 +91,18 @@ class ContatosFragment : Fragment() {
             }
 
         })
+    }
+
+    private fun generateUserSafe(
+        nomeSafe: String,
+        emailSafe: String,
+        fotoSafe: String
+    ): Usuario {
+        val user = Usuario.Builder
+        user.nome(nomeSafe)
+        user.email(emailSafe)
+        user.foto(fotoSafe)
+        return user.builder()
     }
 
     @SuppressLint("NotifyDataSetChanged")
