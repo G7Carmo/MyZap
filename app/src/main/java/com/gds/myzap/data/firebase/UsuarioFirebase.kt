@@ -8,7 +8,7 @@ import com.google.firebase.auth.UserProfileChangeRequest
 
 object UsuarioFirebase {
     private val auth by lazy { ConfigFirebase.getAuthFirebaseEmeilPassword() }
-    suspend fun currentUser() = auth.currentUser
+    fun currentUser() = auth.currentUser
 
     suspend fun userKey() = auth.uid.toString()
     suspend fun verifyCurrentUser() = auth.currentUser != null
@@ -64,7 +64,7 @@ object UsuarioFirebase {
     }
 
 
-    suspend fun dadosUsuarioLogado(): Usuario {
+    fun dadosUsuarioLogado(): Usuario {
         val fbUser = currentUser()!!
         val user = Usuario.Builder
         user.nome(fbUser.displayName.toString())

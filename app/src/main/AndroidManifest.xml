@@ -2,10 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gds.myzap">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-feature android:name="android.hardware.camera" android:required="true"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -15,17 +18,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyZap">
         <activity
-            android:name="com.gds.myzap.ui.view.activity.ConfiguracaoActivity"
-            android:parentActivityName="com.gds.myzap.ui.view.activity.MainActivity"
+            android:name=".ui.view.activity.ChatActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.view.activity.MainActivity"/>
+        <activity
+            android:name=".ui.view.activity.ConfiguracaoActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.view.activity.MainActivity" />
+        <activity
+            android:name=".ui.view.activity.CadastroActivity"
             android:exported="false" />
         <activity
-            android:name="com.gds.myzap.ui.view.activity.CadastroActivity"
+            android:name=".ui.view.activity.SplashActivity"
             android:exported="false" />
         <activity
-            android:name="com.gds.myzap.ui.view.activity.SplashActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.gds.myzap.ui.view.activity.LoginActivity"
+            android:name=".ui.view.activity.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +41,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.gds.myzap.ui.view.activity.MainActivity"
+            android:name=".ui.view.activity.MainActivity"
             android:exported="true" />
     </application>
 
