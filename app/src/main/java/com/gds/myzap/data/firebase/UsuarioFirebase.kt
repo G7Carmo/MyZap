@@ -63,7 +63,8 @@ object UsuarioFirebase {
         return map
     }
 
-    suspend fun dadosUsuarioLogado(): Usuario.Builder {
+
+    suspend fun dadosUsuarioLogado(): Usuario {
         val fbUser = currentUser()!!
         val user = Usuario.Builder
         user.nome(fbUser.displayName.toString())
@@ -73,6 +74,6 @@ object UsuarioFirebase {
         } else {
             user.foto(fbUser.photoUrl.toString())
         }
-        return user
+        return user.builder()
     }
 }

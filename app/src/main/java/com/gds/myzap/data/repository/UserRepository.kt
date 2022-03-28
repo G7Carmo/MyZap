@@ -12,5 +12,5 @@ class UserRepository {
     suspend fun atualizaFoto(uri: Uri): Boolean = userConnected.atualizaFoto(uri)
     suspend fun atualizaNome(nome: String): Boolean = userConnected.atualizaNome(nome)
     suspend fun atualizarUser(user: Usuario) = userConnected.atualizarUser(user)
-    suspend fun dadosUsuarioLogado(): Usuario.Builder = userConnected.dadosUsuarioLogado()
+    suspend fun dadosUsuarioLogado(): Usuario = userConnected.dadosUsuarioLogado()
 }

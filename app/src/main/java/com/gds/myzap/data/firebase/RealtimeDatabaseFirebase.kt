@@ -17,29 +17,17 @@ object RealtimeDatabaseFirebase {
             .child(UsuarioFirebase.userKey())
             .setValue(usuario)
     }
-    suspend fun recuperarDadosDoBD(){
+    suspend fun recuperarDadosDoBD(): ArrayList<Usuario> {
+        val users = ArrayList<Usuario>()
         db.child("Usuarios").child(UsuarioFirebase.userKey()).get().addOnCompleteListener {task->
-            val users = ArrayList<Usuario>()
             val result = task.result
             result?.let {
                 val item = it.getValue(Usuario::class.java)!!
                 users.add(item)
+
             }
         }
-    }
-
-    suspend fun recuperandoDadosDoUser(context: Context,imgView : ImageView,textNome : TextView) {
-        val usuario = UsuarioFirebase.currentUser()
-        val url = usuario?.photoUrl
-        if (url != null) {
-            Glide
-                .with(context)
-                .load(url)
-                .into(imgView)
-        } else {
-            imgView.setImageResource(R.drawable.padrao)
-        }
-        textNome.setText(usuario?.displayName ?: "Sem Nome")
+        return users
     }
 
 }

@@ -6,24 +6,31 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gds.myzap.databinding.FragmentContatosBinding
 import com.gds.myzap.data.firebase.RealtimeDatabaseFirebase
 import com.gds.myzap.data.model.Usuario
 import com.gds.myzap.ui.view.adapter.ContatosAdapter
+import com.gds.myzap.ui.viewmodel.fragment.ContatosViewModel
+import com.gds.myzap.util.hide
+import com.gds.myzap.util.message
+import com.gds.myzap.util.show
+import com.gds.myzap.util.state.UserState
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.launch
 
 
 class ContatosFragment : Fragment() {
     private lateinit var binding: FragmentContatosBinding
     private val listContatos: ArrayList<Usuario> = arrayListOf()
     private lateinit var adapterContatos: ContatosAdapter
-    private lateinit var valueEventListener: ValueEventListener
-    private lateinit var dbRefUser: DatabaseReference
-
+    private val viewModel : ContatosViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +42,7 @@ class ContatosFragment : Fragment() {
     ): View? {
         binding = FragmentContatosBinding.inflate(layoutInflater)
         initRecyclerView()
+        observer()
         return binding.root
     }
 
@@ -43,10 +51,6 @@ class ContatosFragment : Fragment() {
         recuperandoContatos()
     }
 
-    override fun onStop() {
-        super.onStop()
-//        dbRefUser.removeEventListener(valueEventListener)
-    }
 
     private fun initRecyclerView() = with(binding) {
         adapterContatos = configAdapter()
@@ -58,55 +62,29 @@ class ContatosFragment : Fragment() {
     }
 
     private fun configAdapter(): ContatosAdapter {
-        listContatos.map { user ->
-            user?.let {
-
-            }
-        }
         return ContatosAdapter(listContatos, requireContext())
     }
 
-    fun recuperandoContatos() {
-        val dbRefUser = RealtimeDatabaseFirebase.db.child("Usuarios")
-//        valueEventListener = dbRefUser.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                snapshot.children.forEach { data ->
-//                    val nome = snapshot.child("nome").getValue(String::class.java)
-//                    val email = snapshot.child("email").getValue(String::class.java)
-//                    val foto = snapshot.child("foto").getValue(String::class.java)
-//                    nome?.let { nomeSafe->
-//                        email?.let { emailSafe->
-//                            foto?.let { fotoSafe->
-//                                val userSafe = generateUserSafe(nomeSafe, emailSafe, fotoSafe)
-//                                listContatos.add(userSafe)
-//                            }
-//                        }
-//                    }
-//                }
-//                notificarAdapter()
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                TODO("Not yet implemented")
-//            }
-//
-//        })
+    fun recuperandoContatos() = lifecycleScope.launch {
+        viewModel.recuperarDaDosDeContatos()
     }
 
-    private fun generateUserSafe(
-        nomeSafe: String,
-        emailSafe: String,
-        fotoSafe: String
-    ): Usuario {
-        val user = Usuario.Builder
-        user.nome(nomeSafe)
-        user.email(emailSafe)
-        user.foto(fotoSafe)
-        return user.builder()
+
+    private fun observer() {
+        viewModel.listContatos.observe(viewLifecycleOwner, Observer {
+            when(it){
+                is UserState.Success->{
+                    binding.progressbarListaContatos.hide()
+                    val dados = it.data.toString()
+                    adapterContatos.notifyDataSetChanged()
+                }
+                is UserState.Error->{
+                    binding.progressbarListaContatos.hide()
+                    message(it.message.toString())
+                }
+                is UserState.Loading->{binding.progressbarListaContatos.show()}
+                else->{}
+            }
+        })
     }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private fun notificarAdapter() = adapterContatos.notifyDataSetChanged()
-
-
 }

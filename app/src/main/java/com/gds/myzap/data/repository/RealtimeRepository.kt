@@ -11,6 +11,5 @@ class RealtimeRepository {
 
     suspend fun salvarDadosDoCadastro(usuario: Usuario) = db.salvarDadosDoCadastro(usuario)
     suspend fun recuperarDados() = db.recuperarDadosDoBD()
-    suspend fun recuperandoDadosDoUser(context: Context, imgView: ImageView, textNome: TextView) =
-        db.recuperandoDadosDoUser(context, imgView, textNome)
+
 }

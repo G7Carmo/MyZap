@@ -1,5 +1,7 @@
 package com.gds.myzap.data.model
 
+import java.util.*
+
 
 data class Usuario(
     var nome: String,

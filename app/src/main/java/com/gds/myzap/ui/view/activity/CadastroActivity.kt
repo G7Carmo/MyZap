@@ -78,6 +78,7 @@ class CadastroActivity : AppCompatActivity() {
                     viewModel.salvandoNoDbRemoto(user)
                     viewModel.salvandoNomeUser(user.nome)
                     nextScreen(MainActivity())
+                    finish()
                 }
                 is UserState.Error->{
                     binding.progressBarCadastro.hide()

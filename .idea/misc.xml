@@ -17,7 +17,7 @@
         <entry key="app/src/main/res/layout/activity_configuracao.xml" value="0.45" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.26132246376811596" />
-        <entry key="app/src/main/res/layout/fragment_contatos.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_contatos.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_conversas.xml" value="0.28125" />
         <entry key="app/src/main/res/layout/sample_my_view.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.25" />

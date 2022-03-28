@@ -41,7 +41,7 @@ class CadastroViewModel : ViewModel() {
             val user = task.result.user
             _createUser.value = UserState.Success(user)
         } else {
-            _createUser.value = UserState.Error(null,task.exception?.message)
+            _createUser.value = task.exception?.message?.let { UserState.Error(it) }
         }
     }
 

@@ -36,7 +36,7 @@ class LoginViewModel : ViewModel() {
         if (task.isSuccessful) {
             _login.value = UserState.Success()
         } else {
-            _login.value = UserState.Error(null,task.exception?.message)
+            _login.value = task.exception?.message?.let { UserState.Error(it) }
         }
     }
 
@@ -45,7 +45,7 @@ class LoginViewModel : ViewModel() {
         if (task.isSuccessful) {
             _login.value = UserState.Success()
         } else {
-            _login.value = UserState.Error(null,task.exception?.message)
+            _login.value = task.exception?.message?.let { UserState.Error(it) }
         }
     }
 

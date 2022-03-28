@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 
 fun Context.nextScreen(activity : AppCompatActivity){
     Intent(this,activity::class.java).apply {
@@ -41,6 +42,15 @@ fun AppCompatActivity.message(mensagem: String, duracao: Int = Toast.LENGTH_LONG
         duracao
     )
 }
+fun Fragment.message(mensagem: String, duracao: Int = Toast.LENGTH_LONG) {
+    Toast.makeText(
+        context,
+        mensagem,
+        duracao
+    )
+}
+
+
 
 fun View.show(){
     visibility = View.VISIBLE
