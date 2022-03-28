@@ -2,12 +2,10 @@ package com.gds.myzap.util
 
 import android.content.Context
 import android.content.Intent
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.gds.myzap.model.Usuario
-import java.util.*
-import kotlin.collections.HashMap
 
 fun Context.nextScreen(activity : AppCompatActivity){
     Intent(this,activity::class.java).apply {
@@ -42,4 +40,11 @@ fun AppCompatActivity.message(mensagem: String, duracao: Int = Toast.LENGTH_LONG
         mensagem,
         duracao
     )
+}
+
+fun View.show(){
+    visibility = View.VISIBLE
+}
+fun View.hide(){
+    visibility = View.GONE
 }

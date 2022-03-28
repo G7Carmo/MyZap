@@ -1,10 +1,9 @@
-package com.gds.myzap.firebase
+package com.gds.myzap.data.firebase
 
 import android.net.Uri
 import android.util.Log
-import com.gds.myzap.model.Usuario
+import com.gds.myzap.data.model.Usuario
 import com.google.firebase.auth.UserProfileChangeRequest
-import java.util.*
 
 
 object UsuarioFirebase {
@@ -50,7 +49,6 @@ object UsuarioFirebase {
     }
 
     suspend fun atualizarUser(user: Usuario) {
-        val id = userKey()
         val db = ConfigFirebase.getDatabasebFirebase()
         val userRef = db.child("Usuarios").child(userKey())
         val userMap = converterParaMap(user)

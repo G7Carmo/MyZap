@@ -1,6 +1,4 @@
-package com.gds.myzap.model
-
-import java.util.*
+package com.gds.myzap.data.model
 
 
 data class Usuario(

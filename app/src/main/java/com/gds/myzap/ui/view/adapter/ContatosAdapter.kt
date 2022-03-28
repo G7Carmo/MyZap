@@ -1,4 +1,4 @@
-package com.gds.myzap.ui.adapter
+package com.gds.myzap.ui.view.adapter
 
 import android.content.Context
 import android.net.Uri
@@ -7,9 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gds.myzap.R
-import com.gds.myzap.databinding.FragmentContatosBinding
 import com.gds.myzap.databinding.ItemListBinding
-import com.gds.myzap.model.Usuario
+import com.gds.myzap.data.model.Usuario
 
 class ContatosAdapter(
     private val listContatos: ArrayList<Usuario>,

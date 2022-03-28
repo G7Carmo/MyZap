@@ -1,5 +1,5 @@
 
-package com.gds.myzap.ui.adapter
+package com.gds.myzap.ui.view.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

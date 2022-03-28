@@ -15,17 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyZap">
         <activity
-            android:name=".ui.activity.ConfiguracaoActivity"
-            android:parentActivityName=".ui.activity.MainActivity"
+            android:name="com.gds.myzap.ui.view.activity.ConfiguracaoActivity"
+            android:parentActivityName="com.gds.myzap.ui.view.activity.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.CadastroActivity"
+            android:name="com.gds.myzap.ui.view.activity.CadastroActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.SplashActivity"
+            android:name="com.gds.myzap.ui.view.activity.SplashActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.LoginActivity"
+            android:name="com.gds.myzap.ui.view.activity.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name="com.gds.myzap.ui.view.activity.MainActivity"
             android:exported="true" />
     </application>
 

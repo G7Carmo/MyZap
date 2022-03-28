@@ -1,4 +1,4 @@
-package com.gds.myzap.ui.activity
+package com.gds.myzap.ui.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

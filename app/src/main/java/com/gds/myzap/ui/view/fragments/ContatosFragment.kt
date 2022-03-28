@@ -1,4 +1,4 @@
-package com.gds.myzap.ui.fragments
+package com.gds.myzap.ui.view.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gds.myzap.databinding.FragmentContatosBinding
-import com.gds.myzap.firebase.RealtimeDatabaseFirebase
-import com.gds.myzap.model.Usuario
-import com.gds.myzap.ui.adapter.ContatosAdapter
+import com.gds.myzap.data.firebase.RealtimeDatabaseFirebase
+import com.gds.myzap.data.model.Usuario
+import com.gds.myzap.ui.view.adapter.ContatosAdapter
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -45,7 +45,7 @@ class ContatosFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        dbRefUser.removeEventListener(valueEventListener)
+//        dbRefUser.removeEventListener(valueEventListener)
     }
 
     private fun initRecyclerView() = with(binding) {
@@ -68,29 +68,29 @@ class ContatosFragment : Fragment() {
 
     fun recuperandoContatos() {
         val dbRefUser = RealtimeDatabaseFirebase.db.child("Usuarios")
-        valueEventListener = dbRefUser.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                snapshot.children.forEach { data ->
-                    val nome = snapshot.child("nome").getValue(String::class.java)
-                    val email = snapshot.child("email").getValue(String::class.java)
-                    val foto = snapshot.child("foto").getValue(String::class.java)
-                    nome?.let { nomeSafe->
-                        email?.let { emailSafe->
-                            foto?.let { fotoSafe->
-                                val userSafe = generateUserSafe(nomeSafe, emailSafe, fotoSafe)
-                                listContatos.add(userSafe)
-                            }
-                        }
-                    }
-                }
-                notificarAdapter()
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-        })
+//        valueEventListener = dbRefUser.addValueEventListener(object : ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                snapshot.children.forEach { data ->
+//                    val nome = snapshot.child("nome").getValue(String::class.java)
+//                    val email = snapshot.child("email").getValue(String::class.java)
+//                    val foto = snapshot.child("foto").getValue(String::class.java)
+//                    nome?.let { nomeSafe->
+//                        email?.let { emailSafe->
+//                            foto?.let { fotoSafe->
+//                                val userSafe = generateUserSafe(nomeSafe, emailSafe, fotoSafe)
+//                                listContatos.add(userSafe)
+//                            }
+//                        }
+//                    }
+//                }
+//                notificarAdapter()
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                TODO("Not yet implemented")
+//            }
+//
+//        })
     }
 
     private fun generateUserSafe(

@@ -1,14 +1,10 @@
-package com.gds.myzap.firebase
+package com.gds.myzap.data.firebase
 
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.widget.Toast
-import com.google.android.gms.tasks.Task
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.UploadTask
-import com.google.firebase.storage.ktx.storage
 import java.io.ByteArrayOutputStream
 
 object StoregeFirebase {

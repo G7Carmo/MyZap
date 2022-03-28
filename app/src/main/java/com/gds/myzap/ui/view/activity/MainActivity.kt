@@ -1,4 +1,4 @@
-package com.gds.myzap.ui.activity
+package com.gds.myzap.ui.view.activity
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
@@ -9,9 +9,9 @@ import android.view.MenuItem
 import androidx.lifecycle.lifecycleScope
 import com.gds.myzap.R
 import com.gds.myzap.databinding.ActivityMainBinding
-import com.gds.myzap.firebase.AuthFirebase
-import com.gds.myzap.ui.fragments.ContatosFragment
-import com.gds.myzap.ui.fragments.ConversasFragment
+import com.gds.myzap.data.firebase.AuthFirebase
+import com.gds.myzap.ui.view.fragments.ContatosFragment
+import com.gds.myzap.ui.view.fragments.ConversasFragment
 import com.gds.myzap.util.nextScreen
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems

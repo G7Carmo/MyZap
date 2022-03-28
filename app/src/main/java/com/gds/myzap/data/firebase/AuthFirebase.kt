@@ -1,9 +1,9 @@
-package com.gds.myzap.firebase
+package com.gds.myzap.data.firebase
 
 import android.content.Context
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import com.gds.myzap.model.Usuario
+import com.gds.myzap.data.model.Usuario
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
 
