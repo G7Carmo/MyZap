@@ -1,9 +1,11 @@
 package com.gds.myzap.ui.view.activity
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.gds.myzap.R
 import com.gds.myzap.databinding.ActivityChatBinding
+import de.hdodenhof.circleimageview.CircleImageView
 
 class ChatActivity : AppCompatActivity() {
     private lateinit var binding : ActivityChatBinding
@@ -12,21 +14,15 @@ class ChatActivity : AppCompatActivity() {
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initToolBar()
-        listners()
     }
 
 
+    @SuppressLint("ResourceType")
     private fun initToolBar() {
-        val toolbar = binding.toolbarChat.toolbar
-        toolbar.title = "MyZap"
+        val toolbar = binding.toolbarChat
+        toolbar.title = ""
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-
-    private fun listners() = with(binding) {
-        fab.setOnClickListener {
-
-        }
-   }
 }
