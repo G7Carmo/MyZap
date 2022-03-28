@@ -9,6 +9,8 @@ data class Usuario(
     var senha: String,
     var foto : String
 ){
+    constructor() : this("","","","")
+
     object Builder{
         val userBuider = Usuario("","","","")
         fun nome(nome: String){

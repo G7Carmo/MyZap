@@ -42,18 +42,31 @@ class ContatosFragment : Fragment() {
     ): View? {
         binding = FragmentContatosBinding.inflate(layoutInflater)
         initRecyclerView()
-        observer()
         return binding.root
     }
 
     override fun onStart() {
         super.onStart()
-        recuperandoContatos()
+        viewModel.recuperarDados(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                snapshot.children.forEach {
+                    val value = it.getValue(Usuario::class.java)!!
+                    listContatos.add(value)
+                }
+                adapterContatos.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        }
+        )
     }
 
 
     private fun initRecyclerView() = with(binding) {
-        adapterContatos = configAdapter()
+        adapterContatos = ContatosAdapter(listContatos, requireContext())
         recyclerViewContatos.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
@@ -61,30 +74,4 @@ class ContatosFragment : Fragment() {
         }
     }
 
-    private fun configAdapter(): ContatosAdapter {
-        return ContatosAdapter(listContatos, requireContext())
-    }
-
-    fun recuperandoContatos() = lifecycleScope.launch {
-        viewModel.recuperarDaDosDeContatos()
-    }
-
-
-    private fun observer() {
-        viewModel.listContatos.observe(viewLifecycleOwner, Observer {
-            when(it){
-                is UserState.Success->{
-                    binding.progressbarListaContatos.hide()
-                    val dados = it.data.toString()
-                    adapterContatos.notifyDataSetChanged()
-                }
-                is UserState.Error->{
-                    binding.progressbarListaContatos.hide()
-                    message(it.message.toString())
-                }
-                is UserState.Loading->{binding.progressbarListaContatos.show()}
-                else->{}
-            }
-        })
-    }
 }

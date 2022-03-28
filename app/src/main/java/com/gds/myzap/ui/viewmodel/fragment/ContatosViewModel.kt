@@ -7,23 +7,17 @@ import androidx.lifecycle.viewModelScope
 import com.gds.myzap.data.model.Usuario
 import com.gds.myzap.data.repository.RealtimeRepository
 import com.gds.myzap.util.state.UserState
+import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.launch
 
-class ContatosViewModel :ViewModel() {
+class ContatosViewModel : ViewModel() {
     private val repo by lazy { RealtimeRepository() }
 
     private val _listContatos = MutableLiveData<UserState<Usuario>>()
-    val listContatos : LiveData<UserState<Usuario>> = _listContatos
+    val listContatos: LiveData<UserState<Usuario>> = _listContatos
 
-
-
-    suspend fun recuperarDaDosDeContatos(){
-        _listContatos.value = UserState.Loading()
-        val listaSafe = repo.recuperarDados()
-        if (listaSafe.isNotEmpty()){
-            _listContatos.value = UserState.Success(listaSafe)
-        }else{
-            _listContatos.value = UserState.Error("falha ao carregar lista")
-        }
+    fun recuperarDados(listner : ValueEventListener) = viewModelScope.launch {
+        repo.recuperandoDados(listner)
     }
+
 }
