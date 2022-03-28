@@ -40,7 +40,7 @@
             android:paddingRight="16dp">
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/editTextMensagemChat"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -51,14 +51,14 @@
                 tools:ignore="NestedWeights" />
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/imgViewCameraChat"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 app:srcCompat="@drawable/ic_camera_cinza_24dp" />
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton2"
+            android:id="@+id/fabEnviarMensagemChat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"

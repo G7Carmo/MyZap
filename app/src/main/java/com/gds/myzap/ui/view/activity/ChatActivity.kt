@@ -14,8 +14,8 @@ class ChatActivity : AppCompatActivity() {
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initToolBar()
+        listners()
     }
-
 
     @SuppressLint("ResourceType")
     private fun initToolBar() {
@@ -23,6 +23,22 @@ class ChatActivity : AppCompatActivity() {
         toolbar.title = ""
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+
+    private fun listners() = with(binding){
+        circleImagemChat.setOnClickListener {
+            //TODO - Tela da imagem de contato expandida
+        }
+        textNomeUserChat.setOnClickListener {
+            //TODO - Tela de informações do contato
+        }
+        containerChat.fabEnviarMensagemChat.setOnClickListener {
+            //TODO - Acao de enviar mensagem
+        }
+        containerChat.imgViewCameraChat.setOnClickListener {
+            //TODO - Acao de abrir a galeria ou camera para enviar imagem
+        }
     }
 
 }
