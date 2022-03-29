@@ -13,11 +13,17 @@ class AuthRepository {
         context: Context,
         result: (task: Task<AuthResult>) -> Unit
     ) = auth.createUserFirebase(user, context, result)
+
     suspend fun login(
         usuario: Usuario,
         context: Context,
         result: (task: Task<AuthResult>) -> Unit
     ) = auth.login(usuario, context, result)
+
     suspend fun logout() = auth.logout()
-    suspend fun resetPassword(context: Context, email: String, sucesso: (task: Task<Void>) -> Unit) = auth.resetPassword(context, email, sucesso)
+    suspend fun resetPassword(
+        context: Context,
+        email: String,
+        sucesso: (task: Task<Void>) -> Unit
+    ) = auth.resetPassword(context, email, sucesso)
 }

@@ -12,7 +12,7 @@ object UsuarioFirebase {
 
     fun userKey() = auth.uid.toString()
     suspend fun verifyCurrentUser() = auth.currentUser != null
-    suspend fun atualizaFoto(uri: Uri): Boolean {
+    suspend fun atualizaFotoUsuarioLogado(uri: Uri): Boolean {
         val user = currentUser()
         try {
             val profile = UserProfileChangeRequest.Builder()
@@ -30,7 +30,7 @@ object UsuarioFirebase {
         }
     }
 
-    suspend fun atualizaNome(nome: String): Boolean {
+    suspend fun atualizaNomeUsuarioLogado(nome: String): Boolean {
         val user = currentUser()
         try {
             val profile = UserProfileChangeRequest.Builder()
@@ -48,14 +48,14 @@ object UsuarioFirebase {
         }
     }
 
-    suspend fun atualizarUser(user: Usuario) {
+    suspend fun atualizarDadosUsuarioLogado(user: Usuario) {
         val db = ConfigFirebase.getDatabasebFirebase()
         val userRef = db.child("Usuarios").child(userKey())
-        val userMap = converterParaMap(user)
+        val userMap = deUsuarioParaMap(user)
         userRef.updateChildren(userMap)
     }
 
-    private fun converterParaMap(user: Usuario): MutableMap<String, Any> {
+    private fun deUsuarioParaMap(user: Usuario): MutableMap<String, Any> {
         val map = mutableMapOf<String, Any>()
         map.put("email", user.email)
         map.put("nome", user.nome)
@@ -64,7 +64,7 @@ object UsuarioFirebase {
     }
 
 
-    fun dadosUsuarioLogado(): Usuario {
+    fun getTodosOsDadosDoUsuarioLogado(): Usuario {
         val fbUser = currentUser()!!
         val user = Usuario.Builder
         user.nome(fbUser.displayName.toString())

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gds.myzap.data.model.Mensagem
 import com.gds.myzap.data.model.Usuario
 import com.gds.myzap.data.repository.RealtimeRepository
 import com.gds.myzap.data.repository.UserRepository
@@ -26,4 +27,5 @@ class ContatosViewModel : ViewModel() {
         userRepo.dadosUsuarioLogado()
     }
     fun stopListner(listner: ValueEventListener) = repo.stopListner(listner)
+
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.gds.myzap.data.model.Usuario
+import com.gds.myzap.util.dialog
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
 
@@ -90,13 +91,4 @@ object AuthFirebase {
             }
     }
 
-    private fun dialog(context: Context, titulo: String, mensagem: String) {
-        AlertDialog.Builder(context)
-            .setTitle(titulo)
-            .setMessage(mensagem)
-            .setPositiveButton("OK") { dialogInterface, i ->
-            }
-            .create()
-            .show()
-    }
 }

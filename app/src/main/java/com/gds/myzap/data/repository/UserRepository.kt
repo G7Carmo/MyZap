@@ -9,8 +9,8 @@ class UserRepository {
     suspend fun currentUser() = userConnected.currentUser()
     suspend fun userKey() = userConnected.userKey()
     suspend fun verifyCurrentUser() = userConnected.verifyCurrentUser()
-    suspend fun atualizaFoto(uri: Uri): Boolean = userConnected.atualizaFoto(uri)
-    suspend fun atualizaNome(nome: String): Boolean = userConnected.atualizaNome(nome)
-    suspend fun atualizarUser(user: Usuario) = userConnected.atualizarUser(user)
-    suspend fun dadosUsuarioLogado(): Usuario = userConnected.dadosUsuarioLogado()
+    suspend fun atualizaFoto(uri: Uri): Boolean = userConnected.atualizaFotoUsuarioLogado(uri)
+    suspend fun atualizaNome(nome: String): Boolean = userConnected.atualizaNomeUsuarioLogado(nome)
+    suspend fun atualizarUser(user: Usuario) = userConnected.atualizarDadosUsuarioLogado(user)
+    suspend fun dadosUsuarioLogado(): Usuario = userConnected.getTodosOsDadosDoUsuarioLogado()
 }

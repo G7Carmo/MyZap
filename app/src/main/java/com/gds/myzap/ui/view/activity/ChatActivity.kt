@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.gds.myzap.R
+import com.gds.myzap.data.firebase.RealtimeDatabaseFirebase
 import com.gds.myzap.data.firebase.UsuarioFirebase
 import com.gds.myzap.data.model.Mensagem
 import com.gds.myzap.data.model.Usuario
@@ -14,6 +15,8 @@ import com.gds.myzap.databinding.ActivityChatBinding
 class ChatActivity : AppCompatActivity() {
     private lateinit var binding : ActivityChatBinding
     private lateinit var userdestinatario : Usuario
+    private lateinit var idUserDestinatario : String
+    private lateinit var idUserRemetente : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChatBinding.inflate(layoutInflater)
@@ -37,6 +40,8 @@ class ChatActivity : AppCompatActivity() {
             }else{
                 binding.circleImagemChat.setImageResource(R.drawable.padrao)
             }
+            idUserDestinatario = userdestinatario.nome + userdestinatario.email
+
         }
 
     }
@@ -58,7 +63,7 @@ class ChatActivity : AppCompatActivity() {
             //TODO - Tela de informações do contato
         }
         containerChat.fabEnviarMensagemChat.setOnClickListener {
-            //TODO - Acao de enviar mensagem
+            enviarMensagem()
         }
         containerChat.imgViewCameraChat.setOnClickListener {
             //TODO - Acao de abrir a galeria ou camera para enviar imagem
@@ -70,9 +75,12 @@ class ChatActivity : AppCompatActivity() {
             val mensagem = Mensagem()
             mensagem.idUsuario = UsuarioFirebase.userKey()
             mensagem.mensagem = txtMensagem
-            mensagem.foto =
+            salvarMensagem(UsuarioFirebase.userKey(),idUserDestinatario,mensagem)
 
         }
+    }
+    fun salvarMensagem(idRemetente : String,idDestinatario : String,mensagem : Mensagem){
+        RealtimeDatabaseFirebase.salvarMensagemChat(idRemetente,idDestinatario,mensagem)
     }
 
 }

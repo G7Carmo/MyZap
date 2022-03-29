@@ -15,9 +15,9 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.gds.myzap.R
 import com.gds.myzap.data.firebase.UsuarioFirebase
-import com.gds.myzap.data.firebase.UsuarioFirebase.atualizaFoto
-import com.gds.myzap.data.firebase.UsuarioFirebase.atualizarUser
-import com.gds.myzap.data.firebase.UsuarioFirebase.dadosUsuarioLogado
+import com.gds.myzap.data.firebase.UsuarioFirebase.atualizaFotoUsuarioLogado
+import com.gds.myzap.data.firebase.UsuarioFirebase.atualizarDadosUsuarioLogado
+import com.gds.myzap.data.firebase.UsuarioFirebase.getTodosOsDadosDoUsuarioLogado
 import com.gds.myzap.data.model.Usuario
 import com.gds.myzap.databinding.ActivityConfiguracaoBinding
 import com.gds.myzap.ui.viewmodel.activity.ConfiguracaoViewModel
@@ -60,7 +60,7 @@ class ConfiguracaoActivity : AppCompatActivity() {
 
     private fun recuperandoDadosDoUser() = lifecycleScope.launch {
         val usuario = UsuarioFirebase.currentUser()
-        userLogado = dadosUsuarioLogado()
+        userLogado = getTodosOsDadosDoUsuarioLogado()
         val url = usuario?.photoUrl
         if (url != null) {
             Glide
@@ -156,15 +156,15 @@ class ConfiguracaoActivity : AppCompatActivity() {
     private fun atualizandoUsuario() = lifecycleScope.launch {
         userLogado = viewModel.atualizarDadosDoUsuario(userLogado)
         userLogado.nome = binding.editNomeConfiguracao.text.toString()
-        atualizarUser(userLogado)
+        atualizarDadosUsuarioLogado(userLogado)
         message("Salvo com Sucesso")
 
     }
 
     private fun atualizaFotoUsuario(url: Uri) = lifecycleScope.launch {
-        if (atualizaFoto(url)) {
+        if (atualizaFotoUsuarioLogado(url)) {
             userLogado.foto = url.toString()
-            atualizarUser(userLogado)
+            atualizarDadosUsuarioLogado(userLogado)
             message("Foto Alterada")
         }
     }

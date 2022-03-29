@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.gds.myzap.R
+import com.gds.myzap.data.model.Mensagem
 import com.gds.myzap.data.model.Usuario
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -22,11 +23,14 @@ object RealtimeDatabaseFirebase {
             .child(UsuarioFirebase.userKey())
             .setValue(usuario)
     }
-    suspend fun recuperarDadosDoBD(listener : ValueEventListener){
+    suspend fun listaDeUsuariosCadastradosNoFirebase(listener : ValueEventListener){
         val ref = db.child("Usuarios")
         ref.addValueEventListener(listener)
     }
     fun pararListner(listener: ValueEventListener){
         db.removeEventListener(listener)
+    }
+    fun salvarMensagemChat(idRem : String, idDest:String, msg : Mensagem){
+        db.child("Mensagem").child(idRem).child(idDest).setValue(msg)
     }
 }

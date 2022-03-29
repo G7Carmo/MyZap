@@ -32,7 +32,7 @@ class CadastroViewModel : ViewModel() {
     fun salvandoNoDbRemoto(user: Usuario) = viewModelScope.launch { db.salvarDadosDoCadastro(user) }
 
     fun salvandoNomeUser(nome: String) = viewModelScope.launch {
-        userFB.atualizaNome(nome)
+        userFB.atualizaNomeUsuarioLogado(nome)
     }
 
     fun result(task: Task<AuthResult>) {

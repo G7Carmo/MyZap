@@ -48,7 +48,7 @@ class ContatosFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        usuarioAtual = UsuarioFirebase.dadosUsuarioLogado()
+        usuarioAtual = UsuarioFirebase.getTodosOsDadosDoUsuarioLogado()
     }
 
 
