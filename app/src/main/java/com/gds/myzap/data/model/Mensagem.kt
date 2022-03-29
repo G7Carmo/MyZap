@@ -1,5 +1,6 @@
 package com.gds.myzap.data.model
 
+import com.gds.myzap.util.dataEHoraAtual
 import java.io.Serializable
 
 

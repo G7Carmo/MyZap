@@ -1,8 +1,10 @@
 package com.gds.myzap.util
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.icu.text.SimpleDateFormat
 import android.util.Base64
 import android.view.View
 import android.widget.EditText
@@ -16,6 +18,7 @@ import com.gds.myzap.data.firebase.StoregeFirebase
 import com.gds.myzap.data.firebase.UsuarioFirebase
 import com.google.firebase.storage.StorageReference
 import java.io.ByteArrayOutputStream
+import java.util.*
 
 fun Context.nextScreen(activity : AppCompatActivity){
     Intent(this,activity::class.java).apply {
@@ -93,3 +96,7 @@ fun StoregeFirebase.preparandoImagemParaOStorage(imagem: Bitmap): ByteArray {
     val dadosImg = baos.toByteArray()
     return dadosImg
 }
+
+@SuppressLint("SimpleDateFormat")
+fun Any.dataEHoraAtual(): String =
+    SimpleDateFormat("dd/MM/yy" +"--"+ "HH:mm:ss").format(Date())

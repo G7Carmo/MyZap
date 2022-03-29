@@ -11,8 +11,7 @@ import com.gds.myzap.data.firebase.UsuarioFirebase
 import com.gds.myzap.data.model.Mensagem
 import com.gds.myzap.data.model.Usuario
 import com.gds.myzap.databinding.ActivityChatBinding
-import com.gds.myzap.util.AppUtil
-import com.gds.myzap.util.message
+import com.gds.myzap.util.dataEHoraAtual
 
 class ChatActivity : AppCompatActivity() {
     private lateinit var binding : ActivityChatBinding
@@ -77,7 +76,6 @@ class ChatActivity : AppCompatActivity() {
             val mensagem = Mensagem()
             mensagem.idUsuario = UsuarioFirebase.userKey()
             mensagem.mensagem = txtMensagem
-            mensagem.dataEHora = AppUtil.dataEHoraAtual()
             salvarMensagem(UsuarioFirebase.userKey(),idUserDestinatario,mensagem)
         }
     }
