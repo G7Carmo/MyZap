@@ -6,12 +6,13 @@ import java.io.Serializable
 data class Mensagem(
     var idUsuario: String,
     var mensagem: String,
-    var foto : String
+    var foto : String,
+    var dataEHora : String
 ): Serializable{
-    constructor() : this("","","")
+    constructor() : this("","","","")
 
     object Builder{
-        val msgBuilder = Mensagem("","","")
+        val msgBuilder = Mensagem("","","","")
         fun id(id: String){
             msgBuilder.idUsuario = id
         }
@@ -20,6 +21,9 @@ data class Mensagem(
         }
         fun foto(foto: String){
             msgBuilder.foto = foto
+        }
+        fun dataEHora(dataEHora: String){
+            msgBuilder.dataEHora = dataEHora
         }
         fun builder() = msgBuilder
     }

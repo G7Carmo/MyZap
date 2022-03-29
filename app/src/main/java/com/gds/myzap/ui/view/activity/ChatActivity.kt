@@ -2,8 +2,8 @@ package com.gds.myzap.ui.view.activity
 
 import android.annotation.SuppressLint
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.gds.myzap.R
 import com.gds.myzap.data.firebase.RealtimeDatabaseFirebase
@@ -11,6 +11,8 @@ import com.gds.myzap.data.firebase.UsuarioFirebase
 import com.gds.myzap.data.model.Mensagem
 import com.gds.myzap.data.model.Usuario
 import com.gds.myzap.databinding.ActivityChatBinding
+import com.gds.myzap.util.AppUtil
+import com.gds.myzap.util.message
 
 class ChatActivity : AppCompatActivity() {
     private lateinit var binding : ActivityChatBinding
@@ -40,7 +42,7 @@ class ChatActivity : AppCompatActivity() {
             }else{
                 binding.circleImagemChat.setImageResource(R.drawable.padrao)
             }
-            idUserDestinatario = userdestinatario.nome + userdestinatario.email
+            idUserDestinatario = userdestinatario.nome  + userdestinatario.email.replace("@","").replace(".","")
 
         }
 
@@ -75,12 +77,13 @@ class ChatActivity : AppCompatActivity() {
             val mensagem = Mensagem()
             mensagem.idUsuario = UsuarioFirebase.userKey()
             mensagem.mensagem = txtMensagem
+            mensagem.dataEHora = AppUtil.dataEHoraAtual()
             salvarMensagem(UsuarioFirebase.userKey(),idUserDestinatario,mensagem)
-
         }
     }
     fun salvarMensagem(idRemetente : String,idDestinatario : String,mensagem : Mensagem){
         RealtimeDatabaseFirebase.salvarMensagemChat(idRemetente,idDestinatario,mensagem)
+        binding.containerChat.editTextMensagemChat.text.clear()
     }
 
 }

@@ -31,6 +31,6 @@ object RealtimeDatabaseFirebase {
         db.removeEventListener(listener)
     }
     fun salvarMensagemChat(idRem : String, idDest:String, msg : Mensagem){
-        db.child("Mensagem").child(idRem).child(idDest).setValue(msg)
+        db.child("Mensagem").child(idRem).child(idDest).push().setValue(msg)
     }
 }
