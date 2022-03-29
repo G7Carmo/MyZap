@@ -25,4 +25,5 @@ class ContatosViewModel : ViewModel() {
     fun recuperarDadosDoUserLogado() = viewModelScope.launch {
         userRepo.dadosUsuarioLogado()
     }
+    fun stopListner(listner: ValueEventListener) = repo.stopListner(listner)
 }

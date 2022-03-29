@@ -10,7 +10,7 @@ object UsuarioFirebase {
     private val auth by lazy { ConfigFirebase.getAuthFirebaseEmeilPassword() }
     fun currentUser() = auth.currentUser
 
-    suspend fun userKey() = auth.uid.toString()
+    fun userKey() = auth.uid.toString()
     suspend fun verifyCurrentUser() = auth.currentUser != null
     suspend fun atualizaFoto(uri: Uri): Boolean {
         val user = currentUser()
@@ -76,4 +76,6 @@ object UsuarioFirebase {
         }
         return user.builder()
     }
+
+
 }

@@ -29,6 +29,22 @@ class ContatosFragment : Fragment() {
     private lateinit var adapterContatos: ContatosAdapter
     private val viewModel: ContatosViewModel by viewModels()
     private lateinit var usuarioAtual: Usuario
+    val eventListener = object : ValueEventListener {
+        override fun onDataChange(snapshot: DataSnapshot) {
+            snapshot.children.forEach {
+                val user = it.getValue(Usuario::class.java)!!
+                if (!user.email.equals(usuarioAtual.email)) {
+                    listContatos.add(user)
+                }
+            }
+            adapterContatos.notifyDataSetChanged()
+        }
+
+        override fun onCancelled(error: DatabaseError) {
+            message(error.message)
+        }
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,23 +63,12 @@ class ContatosFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.recuperarDados(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                snapshot.children.forEach {
-                    val user = it.getValue(Usuario::class.java)!!
-                    if (!user.email.equals(usuarioAtual.email)) {
-                        listContatos.add(user)
-                    }
-                }
-                adapterContatos.notifyDataSetChanged()
-            }
+        viewModel.recuperarDados(eventListener)
+    }
 
-            override fun onCancelled(error: DatabaseError) {
-                message(error.message)
-            }
-
-        }
-        )
+    override fun onStop() {
+        super.onStop()
+        viewModel.stopListner(eventListener)
     }
 
     private fun initRecyclerView() = with(binding) {
@@ -79,7 +84,9 @@ class ContatosFragment : Fragment() {
     private fun getListner(recyclerView: RecyclerView): RecyclerView.OnItemTouchListener {
         return RecyclerItemClickListner(context,recyclerView,object : RecyclerItemClickListner.OnItemClickListener{
             override fun onItemClick(view: View?, position: Int) {
+                val userSelecionado = listContatos.get(position)
                 Intent(context,ChatActivity::class.java).apply {
+                    this.putExtra("chatContato",userSelecionado)
                     startActivity(this)
                 }
             }

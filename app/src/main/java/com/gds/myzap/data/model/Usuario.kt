@@ -1,5 +1,6 @@
 package com.gds.myzap.data.model
 
+import java.io.Serializable
 import java.util.*
 
 
@@ -8,7 +9,7 @@ data class Usuario(
     var email: String,
     var senha: String,
     var foto : String
-){
+): Serializable{
     constructor() : this("","","","")
 
     object Builder{

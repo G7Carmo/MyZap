@@ -12,4 +12,5 @@ class RealtimeRepository {
 
     suspend fun salvarDadosDoCadastro(usuario: Usuario) = db.salvarDadosDoCadastro(usuario)
     suspend fun recuperandoDados(listner : ValueEventListener) = db.recuperarDadosDoBD(listner)
+    fun stopListner(listner: ValueEventListener) = db.pararListner(listner)
 }

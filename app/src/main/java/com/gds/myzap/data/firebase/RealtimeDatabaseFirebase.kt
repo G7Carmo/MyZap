@@ -26,4 +26,7 @@ object RealtimeDatabaseFirebase {
         val ref = db.child("Usuarios")
         ref.addValueEventListener(listener)
     }
+    fun pararListner(listener: ValueEventListener){
+        db.removeEventListener(listener)
+    }
 }
