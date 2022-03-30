@@ -5,17 +5,15 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.icu.text.SimpleDateFormat
-import android.util.Base64
 import android.view.View
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.gds.myzap.data.firebase.AuthFirebase
-import com.gds.myzap.data.firebase.RealtimeDatabaseFirebase
 import com.gds.myzap.data.firebase.StoregeFirebase
 import com.gds.myzap.data.firebase.UsuarioFirebase
+import com.gds.myzap.data.model.Usuario
 import com.google.firebase.storage.StorageReference
 import java.io.ByteArrayOutputStream
 import java.util.*
@@ -52,14 +50,14 @@ fun AppCompatActivity.message(mensagem: String, duracao: Int = Toast.LENGTH_LONG
         this,
         mensagem,
         duracao
-    )
+    ).show()
 }
 fun Fragment.message(mensagem: String, duracao: Int = Toast.LENGTH_LONG) {
     Toast.makeText(
         context,
         mensagem,
         duracao
-    )
+    ).show()
 }
 
 
@@ -81,22 +79,27 @@ fun AuthFirebase.dialog(context: Context, titulo: String, mensagem: String) {
         .show()
 }
 
-fun StoregeFirebase.localDeArmazenamentoImagemDePerfil(storage:StorageReference): StorageReference {
-    val storageRef = storage
-    val imagesRef: StorageReference = storageRef
+fun StoregeFirebase.localDeArmazenamentoImagemDePerfil(storage: StorageReference): StorageReference {
+    return storage
         .child("Imagens")
         .child(UsuarioFirebase.userKey())
         .child("perfil.jpeg")
-    return imagesRef
 }
 
 fun StoregeFirebase.preparandoImagemParaOStorage(imagem: Bitmap): ByteArray {
     val baos = ByteArrayOutputStream()
     imagem.compress(Bitmap.CompressFormat.JPEG, 70, baos)
-    val dadosImg = baos.toByteArray()
-    return dadosImg
+    return baos.toByteArray()
 }
 
 @SuppressLint("SimpleDateFormat")
 fun Any.dataEHoraAtual(): String =
     SimpleDateFormat("dd/MM/yy" +"--"+ "HH:mm:ss").format(Date())
+
+fun Usuario.toMap(): MutableMap<String, Any> {
+    val map = mutableMapOf<String, Any>()
+    map["email"] = this.email
+    map["nome"] = this.nome
+    map["foto"] = this.foto
+    return map
+}

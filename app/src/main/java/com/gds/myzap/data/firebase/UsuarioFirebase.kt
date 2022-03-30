@@ -3,6 +3,7 @@ package com.gds.myzap.data.firebase
 import android.net.Uri
 import android.util.Log
 import com.gds.myzap.data.model.Usuario
+import com.gds.myzap.util.toMap
 import com.google.firebase.auth.UserProfileChangeRequest
 
 
@@ -51,8 +52,7 @@ object UsuarioFirebase {
     suspend fun atualizarDadosUsuarioLogado(user: Usuario) {
         val db = ConfigFirebase.getDatabasebFirebase()
         val userRef = db.child("Usuarios").child(userKey())
-        val userMap = deUsuarioParaMap(user)
-        userRef.updateChildren(userMap)
+        userRef.updateChildren(user.toMap())
     }
 
     private fun deUsuarioParaMap(user: Usuario): MutableMap<String, Any> {
