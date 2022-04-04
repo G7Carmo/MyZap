@@ -2,21 +2,13 @@ package com.gds.myzap.ui.viewmodel.activity
 
 import android.annotation.SuppressLint
 import android.app.Application
-import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.lifecycle.*
-import com.gds.myzap.data.firebase.RealtimeDatabaseFirebase
-import com.gds.myzap.data.firebase.UsuarioFirebase
 import com.gds.myzap.data.model.Usuario
-import com.gds.myzap.data.repository.RealtimeRepository
 import com.gds.myzap.data.repository.StorageRepository
 import com.gds.myzap.data.repository.UserRepository
-import com.gds.myzap.util.message
 import com.gds.myzap.util.state.UserState
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class ConfiguracaoViewModel(application: Application) : AndroidViewModel(application) {

@@ -49,6 +49,7 @@ class ContatosFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         usuarioAtual = UsuarioFirebase.getTodosOsDadosDoUsuarioLogado()
+        viewModel.recuperarDados(eventListener)
     }
 
 
@@ -63,7 +64,7 @@ class ContatosFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.recuperarDados(eventListener)
+//        viewModel.recuperarDados(eventListener)
     }
 
     override fun onStop() {

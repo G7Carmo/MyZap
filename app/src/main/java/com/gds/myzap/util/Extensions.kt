@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.icu.text.SimpleDateFormat
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -14,9 +15,12 @@ import com.gds.myzap.data.firebase.AuthFirebase
 import com.gds.myzap.data.firebase.StoregeFirebase
 import com.gds.myzap.data.firebase.UsuarioFirebase
 import com.gds.myzap.data.model.Usuario
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.storage.StorageReference
 import java.io.ByteArrayOutputStream
 import java.util.*
+import javax.microedition.khronos.egl.EGLDisplay
 
 fun Context.nextScreen(activity : AppCompatActivity){
     Intent(this,activity::class.java).apply {
@@ -102,4 +106,14 @@ fun Usuario.toMap(): MutableMap<String, Any> {
     map["nome"] = this.nome
     map["foto"] = this.foto
     return map
+}
+fun Any.textIsValid(edit: TextInputEditText,label : TextInputLayout,error : String): String {
+    val safeText = edit.text.toString().trim()
+    if (safeText.isNotEmpty()){
+        return safeText
+    }else{
+        label.isErrorEnabled = true
+        label.error = error
+    }
+    return safeText
 }

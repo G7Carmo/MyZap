@@ -4,17 +4,11 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import com.gds.myzap.databinding.ActivityCadastroBinding
-import com.gds.myzap.data.firebase.RealtimeDatabaseFirebase
-import com.gds.myzap.data.firebase.UsuarioFirebase
 import com.gds.myzap.data.model.Usuario
 import com.gds.myzap.ui.viewmodel.activity.CadastroViewModel
 import com.gds.myzap.util.*
 import com.gds.myzap.util.state.UserState
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
-import kotlinx.coroutines.launch
 
 class CadastroActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCadastroBinding

@@ -2,7 +2,7 @@ package com.gds.myzap.ui.viewmodel.activity
 
 import android.content.Context
 import androidx.lifecycle.*
-import com.gds.myzap.data.firebase.RealtimeDatabaseFirebase
+import com.gds.myzap.data.firebase.RealtimeDBFirebase
 import com.gds.myzap.data.firebase.UsuarioFirebase
 import com.gds.myzap.data.model.Usuario
 import com.gds.myzap.data.repository.AuthRepository
@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class CadastroViewModel : ViewModel() {
     private val repo by lazy { AuthRepository() }
-    private val db by lazy { RealtimeDatabaseFirebase }
+    private val db by lazy { RealtimeDBFirebase }
     private val userFB by lazy { UsuarioFirebase }
 
 
