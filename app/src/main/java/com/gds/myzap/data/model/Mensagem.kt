@@ -1,14 +1,16 @@
 package com.gds.myzap.data.model
 
-import com.gds.myzap.util.dataEHoraAtual
+import android.annotation.SuppressLint
+import android.icu.text.SimpleDateFormat
 import java.io.Serializable
+import java.util.*
 
 
 data class Mensagem(
-    var idUsuario: String,
-    var mensagem: String,
+    var dataEHora : String,
     var foto : String,
-    var dataEHora : String
+    var idUsuario: String,
+    var mensagem: String
 ): Serializable{
     constructor() : this("","","","")
 
@@ -28,4 +30,7 @@ data class Mensagem(
         }
         fun builder() = msgBuilder
     }
+    @SuppressLint("SimpleDateFormat")
+    fun dataEHoraAtual(): String =
+        SimpleDateFormat("dd/MM/yy" +"--"+ "HH:mm:ss").format(Date())
 }

@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import com.gds.myzap.data.firebase.AuthFirebase
 import com.gds.myzap.data.firebase.StoregeFirebase
 import com.gds.myzap.data.firebase.UsuarioFirebase
+import com.gds.myzap.data.model.Mensagem
 import com.gds.myzap.data.model.Usuario
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout

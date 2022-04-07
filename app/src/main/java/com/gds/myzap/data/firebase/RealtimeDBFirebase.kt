@@ -1,5 +1,6 @@
 package com.gds.myzap.data.firebase
 
+import android.util.Log
 import com.gds.myzap.data.model.Mensagem
 import com.gds.myzap.data.model.Usuario
 import com.google.firebase.database.ChildEventListener
@@ -23,8 +24,7 @@ object RealtimeDBFirebase {
         db.child("Mensagem").child(idRem).child(idDest).push().setValue(msg)
     }
     fun recuperarMensagenParaoChat(idRem: String, idDest:String, listener: ChildEventListener){
-        val ref = db.child("Mensagens").child(idRem).child(idDest)
-        ref.addChildEventListener(listener)
+        db.child("Mensagens").child(idRem).child(idDest).addChildEventListener(listener)
     }
     fun stopEventListner(listener: ChildEventListener){
         db.removeEventListener(listener)

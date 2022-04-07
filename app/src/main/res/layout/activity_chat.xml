@@ -39,4 +39,9 @@
     <include
         android:id="@+id/containerChat"
         layout="@layout/container_chat"/>
+    <ProgressBar
+        android:id="@+id/chatProgressBar"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
