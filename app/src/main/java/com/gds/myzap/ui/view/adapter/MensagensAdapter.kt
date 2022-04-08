@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.gds.myzap.data.firebase.UsuarioFirebase
 import com.gds.myzap.data.model.Mensagem
 import com.gds.myzap.databinding.AdapterMensagemRemetenteBinding
+import com.gds.myzap.util.hide
 
 class MensagensAdapter(
     private val context: Context,
@@ -40,12 +41,16 @@ class MensagensAdapter(
         val mensagem = listMensagens[position]
         holder.binding.apply {
             textMensagemTexto.text = mensagem.mensagem
-            mensagem.foto.isNotEmpty().apply {
+            if (!mensagem.foto.isEmpty()){
                 val uri = Uri.parse(mensagem.foto)
                 Glide.with(context).load(uri).into(imageMensagemFoto)
-            }.let {
-                holder.binding.textMensagemTexto.text = mensagem.mensagem
+
+                textMensagemTexto.hide()
+            }else{
+                textMensagemTexto.text = mensagem.mensagem
+                imageMensagemFoto.hide()
             }
+
         }
 
     }

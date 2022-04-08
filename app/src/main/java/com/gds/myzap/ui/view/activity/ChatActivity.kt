@@ -17,6 +17,7 @@ import com.gds.myzap.data.model.Usuario
 import com.gds.myzap.databinding.ActivityChatBinding
 import com.gds.myzap.ui.view.adapter.MensagensAdapter
 import com.gds.myzap.ui.viewmodel.activity.ChatViewModel
+import com.gds.myzap.util.dataEHoraAtual
 import com.gds.myzap.util.hide
 import com.gds.myzap.util.show
 import com.gds.myzap.util.state.StateMessage
@@ -107,6 +108,7 @@ class ChatActivity : AppCompatActivity() {
             val mensagem = Mensagem()
             mensagem.idUsuario = userKey()
             mensagem.mensagem = txtMensagem
+            mensagem.dataEHora = dataEHoraAtual()
             salvarMensagem(userKey(),idUserDestinatario,mensagem)
         }
     }
@@ -125,6 +127,9 @@ class ChatActivity : AppCompatActivity() {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                     val mensagem = snapshot.getValue(Mensagem::class.java)!!
                     val idUsuario = mensagem.idUsuario
+                    val dataEHora = mensagem.dataEHora
+                    val foto = mensagem.foto
+                    val mensagem1 = mensagem.mensagem
                     listaMensagens.add(mensagem)
                     mensagensAdapter.notifyDataSetChanged()
                 }
