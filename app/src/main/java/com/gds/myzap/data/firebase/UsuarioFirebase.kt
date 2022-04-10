@@ -71,6 +71,7 @@ object UsuarioFirebase {
         user.email(fbUser.email.toString())
         if (fbUser.photoUrl == null) {
             user.foto("")
+
         } else {
             user.foto(fbUser.photoUrl.toString())
         }
