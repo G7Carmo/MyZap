@@ -35,8 +35,8 @@ object RealtimeDBFirebase {
                 }
 
                 override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                    TODO("Not yet implemented")
-                }
+                    val mensagem = snapshot.getValue(Mensagem::class.java)!!
+                    result(mensagem)                }
 
                 override fun onChildRemoved(snapshot: DataSnapshot) {
                     TODO("Not yet implemented")

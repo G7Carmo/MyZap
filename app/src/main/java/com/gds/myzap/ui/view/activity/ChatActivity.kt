@@ -3,6 +3,7 @@ package com.gds.myzap.ui.view.activity
 import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
+import android.os.Looper
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -17,13 +18,12 @@ import com.gds.myzap.data.model.Usuario
 import com.gds.myzap.databinding.ActivityChatBinding
 import com.gds.myzap.ui.view.adapter.MensagensAdapter
 import com.gds.myzap.ui.viewmodel.activity.ChatViewModel
-import com.gds.myzap.util.dataEHoraAtual
-import com.gds.myzap.util.hide
-import com.gds.myzap.util.show
+import com.gds.myzap.util.*
 import com.gds.myzap.util.state.StateMessage
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import java.util.logging.Handler
 
 class ChatActivity : AppCompatActivity() {
     private lateinit var binding : ActivityChatBinding
@@ -42,6 +42,7 @@ class ChatActivity : AppCompatActivity() {
         bundleValeus()
         setupList()
         listners()
+        observers()
 
 
     }
@@ -75,6 +76,7 @@ class ChatActivity : AppCompatActivity() {
         toolbar.title = ""
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
     }
 
     private fun initAdapter() : MensagensAdapter{
@@ -119,40 +121,37 @@ class ChatActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-//        viewModel.fetch(userKey(),idUserDestinatario)
-       RealtimeDBFirebase.recuperarMensagenParaoChat(idUserDestinatario){result(it)}
+       viewModel.carregarMsgs(idUserDestinatario)
 
 
     }
 
-    private fun result(it: Mensagem) {
+    private fun notifyAdapter(it: Mensagem) {
         listaMensagens.add(it)
         mensagensAdapter.notifyDataSetChanged()
     }
 
-//    private fun observers() {
-//        viewModel.mensagem.observe(this, Observer { state->
-//            when(state){
-//                is StateMessage.Success->{
-//                    binding.chatProgressBar.hide()
-//                    binding.containerChat.root.show()
-//                    state.messageValue?.let { listaMensagens.add(it) }
-//                    mensagensAdapter.notifyDataSetChanged()
-//                }
-//                is StateMessage.Loading->{
-//                    binding.containerChat.root.hide()
-//                    binding.chatProgressBar.show()
-//                }
-//                is StateMessage.Error->{
-//
-//                }
-//                else->{}
-//            }
-//        })
-//    }
-
-    override fun onStop() {
-        super.onStop()
+    private fun observers() {
+        viewModel.mensagem.observe(this, Observer { state->
+            when(state){
+                is StateMessage.Success->{
+                    binding.chatProgressBar.hide()
+                    binding.containerChat.root.show()
+                    state.messageValue?.let { listaMensagens.add(it) }
+                    mensagensAdapter.notifyDataSetChanged()
+                }
+                is StateMessage.Loading->{
+                    binding.containerChat.root.hide()
+                    binding.chatProgressBar.show()
+                }
+                is StateMessage.Error->{
+                    binding.chatProgressBar.hide()
+                    binding.containerChat.root.show()
+                    state.messageError?.let { message(it) }
+                }
+                else->{}
+            }
+        })
     }
 
 }
