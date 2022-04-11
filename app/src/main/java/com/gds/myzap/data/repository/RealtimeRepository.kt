@@ -13,5 +13,5 @@ class RealtimeRepository {
     suspend fun recuperandoDados(listner : ValueEventListener) = db.listaDeUsuariosCadastradosNoFirebase(listner)
     fun stopListner(listner: ValueEventListener) = db.stopEventListner(listner)
     fun salvarMensagem(idRem : String,idDest:String,msg : Mensagem) = db.salvarMensagemChat(idRem, idDest, msg)
-    fun recuperarMensagenParaoChat(idRem: String, idDest:String, listener: ChildEventListener) = db.recuperarMensagenParaoChat(idRem, idDest, listener)
+//    fun recuperarMensagenParaoChat(idRem: String, idDest:String, listener: ChildEventListener) = db.recuperarMensagenParaoChat(idRem, idDest, listener)
 }

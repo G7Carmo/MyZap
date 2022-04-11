@@ -58,7 +58,7 @@ class ChatActivity : AppCompatActivity() {
             }else{
                 binding.circleImagemChat.setImageResource(R.drawable.padrao)
             }
-            idUserDestinatario = userdestinatario.nome  + userdestinatario.email.replace("@","").replace(".","")
+            idUserDestinatario =" ${userdestinatario.nome.replace(" ","")}${userdestinatario.email.replace("@","").replace(".","").trim()}"
 
         }
 
@@ -120,39 +120,14 @@ class ChatActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 //        viewModel.fetch(userKey(),idUserDestinatario)
-        ConfigFirebase.getDatabasebFirebase()
-            .child("Mensagem")
-            .child(userKey())
-            .child(idUserDestinatario).addChildEventListener(object : ChildEventListener {
-                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                    val mensagem = snapshot.getValue(Mensagem::class.java)!!
-                    val idUsuario = mensagem.idUsuario
-                    val dataEHora = mensagem.dataEHora
-                    val foto = mensagem.foto
-                    val mensagem1 = mensagem.mensagem
-                    listaMensagens.add(mensagem)
-                    mensagensAdapter.notifyDataSetChanged()
-                }
-
-                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                    TODO("Not yet implemented")
-                }
-
-                override fun onChildRemoved(snapshot: DataSnapshot) {
-                    TODO("Not yet implemented")
-                }
-
-                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                    TODO("Not yet implemented")
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-
-            })
+       RealtimeDBFirebase.recuperarMensagenParaoChat(idUserDestinatario){result(it)}
 
 
+    }
+
+    private fun result(it: Mensagem) {
+        listaMensagens.add(it)
+        mensagensAdapter.notifyDataSetChanged()
     }
 
 //    private fun observers() {
