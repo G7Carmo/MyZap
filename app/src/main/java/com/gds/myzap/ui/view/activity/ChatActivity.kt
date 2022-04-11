@@ -1,10 +1,13 @@
 package com.gds.myzap.ui.view.activity
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Looper
+import android.provider.MediaStore
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,13 +29,12 @@ import com.google.firebase.database.DatabaseError
 import java.util.logging.Handler
 
 class ChatActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityChatBinding
-    private lateinit var userdestinatario : Usuario
-    private lateinit var idUserDestinatario : String
-    private lateinit var mensagensAdapter : MensagensAdapter
-    private var listaMensagens : ArrayList<Mensagem> = arrayListOf()
-    private val viewModel : ChatViewModel by viewModels()
-
+    private lateinit var binding: ActivityChatBinding
+    private lateinit var userdestinatario: Usuario
+    private lateinit var idUserDestinatario: String
+    private lateinit var mensagensAdapter: MensagensAdapter
+    private var listaMensagens: ArrayList<Mensagem> = arrayListOf()
+    private val viewModel: ChatViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,24 +48,28 @@ class ChatActivity : AppCompatActivity() {
 
 
     }
+
     private fun bundleValeus() {
         val extras = intent.extras
-        if (extras != null){
+        if (extras != null) {
             userdestinatario = extras.getSerializable("chatContato") as Usuario
             binding.textNomeUserChat.text = userdestinatario.nome
-            if ( userdestinatario.foto != null){
+            if (userdestinatario.foto != null) {
                 val uriFoto = Uri.parse(userdestinatario.foto)
                 Glide.with(this)
                     .load(uriFoto)
                     .into(binding.circleImagemChat)
-            }else{
+            } else {
                 binding.circleImagemChat.setImageResource(R.drawable.padrao)
             }
-            idUserDestinatario =" ${userdestinatario.nome.replace(" ","")}${userdestinatario.email.replace("@","").replace(".","").trim()}"
+            idUserDestinatario = " ${userdestinatario.nome.replace(" ", "")}${
+                userdestinatario.email.replace("@", "").replace(".", "").trim()
+            }"
 
         }
 
     }
+
     private fun setupList() {
         initToolBar()
         val adapter = initAdapter()
@@ -79,10 +85,11 @@ class ChatActivity : AppCompatActivity() {
 
     }
 
-    private fun initAdapter() : MensagensAdapter{
+    private fun initAdapter(): MensagensAdapter {
         mensagensAdapter = MensagensAdapter(this, listaMensagens)
         return mensagensAdapter
     }
+
     fun initRecyclerView(adapter: MensagensAdapter) {
         binding.containerChat.rvConversasChat.apply {
             this.adapter = adapter
@@ -90,7 +97,7 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
-    private fun listners() = with(binding){
+    private fun listners() = with(binding) {
         circleImagemChat.setOnClickListener {
             //TODO - Tela da imagem de contato expandida
         }
@@ -101,55 +108,73 @@ class ChatActivity : AppCompatActivity() {
             enviarMensagem()
         }
         containerChat.imgViewCameraChat.setOnClickListener {
-            //TODO - Acao de abrir a galeria ou camera para enviar imagem
+            showDialogOptionPicture()
         }
     }
-    private fun enviarMensagem(){
+
+    @SuppressLint("QueryPermissionsNeeded")
+    private fun showDialogOptionPicture() {
+        AlertDialog.Builder(this)
+            .setTitle("Escolha uma opção")
+            .setPositiveButton("Camera") { _, _ ->
+                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                if (intent.resolveActivity(packageManager) != null) {
+                    startActivityForResult(intent, ConfiguracaoActivity.SELECAO_CAMERA)
+                }
+            }
+            .setNegativeButton("Galeria") { _, _ ->
+                val intent =
+                    Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                if (intent.resolveActivity(packageManager) != null) {
+                    startActivityForResult(intent, ConfiguracaoActivity.SELECAO_GALERIA)
+                }
+            }
+            .create()
+            .show()
+    }
+
+    private fun enviarMensagem() {
         val txtMensagem = binding.containerChat.editTextMensagemChat.text.toString()
-        if(!txtMensagem.isEmpty()){
+        if (!txtMensagem.isEmpty()) {
             val mensagem = Mensagem()
             mensagem.idUsuario = userKey()
             mensagem.mensagem = txtMensagem
             mensagem.dataEHora = dataEHoraAtual()
-            salvarMensagem(userKey(),idUserDestinatario,mensagem)
+            salvarMensagem(userKey(), idUserDestinatario, mensagem)
         }
     }
-    private fun salvarMensagem(idRemetente : String,idDestinatario : String,mensagem : Mensagem){
-        RealtimeDBFirebase.salvarMensagemChat(idRemetente,idDestinatario,mensagem)
+
+    private fun salvarMensagem(idRemetente: String, idDestinatario: String, mensagem: Mensagem) {
+        RealtimeDBFirebase.salvarMensagemChat(idRemetente, idDestinatario, mensagem)
         binding.containerChat.editTextMensagemChat.text.clear()
     }
 
     override fun onStart() {
         super.onStart()
-       viewModel.carregarMsgs(idUserDestinatario)
+        viewModel.carregarMsgs(idUserDestinatario)
 
 
-    }
-
-    private fun notifyAdapter(it: Mensagem) {
-        listaMensagens.add(it)
-        mensagensAdapter.notifyDataSetChanged()
     }
 
     private fun observers() {
-        viewModel.mensagem.observe(this, Observer { state->
-            when(state){
-                is StateMessage.Success->{
+        viewModel.mensagem.observe(this, Observer { state ->
+            when (state) {
+                is StateMessage.Success -> {
                     binding.chatProgressBar.hide()
                     binding.containerChat.root.show()
                     state.messageValue?.let { listaMensagens.add(it) }
                     mensagensAdapter.notifyDataSetChanged()
                 }
-                is StateMessage.Loading->{
+                is StateMessage.Loading -> {
                     binding.containerChat.root.hide()
                     binding.chatProgressBar.show()
                 }
-                is StateMessage.Error->{
+                is StateMessage.Error -> {
                     binding.chatProgressBar.hide()
                     binding.containerChat.root.show()
                     state.messageError?.let { message(it) }
                 }
-                else->{}
+                else -> {}
             }
         })
     }
